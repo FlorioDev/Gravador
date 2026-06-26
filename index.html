@@ -10,18 +10,20 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0d0d0d;
-    --surface: #161616;
-    --surface2: #1f1f1f;
-    --border: #2a2a2a;
-    --border2: #333;
-    --accent: #e8ff47;
-    --accent2: #b8cc2a;
-    --red: #ff4545;
-    --red2: #cc2828;
-    --text: #f0f0f0;
-    --text2: #888;
-    --text3: #555;
+    --bg: #f5f5f3;
+    --surface: #ffffff;
+    --surface2: #f0efeb;
+    --border: #e0ddd6;
+    --border2: #ccc9c0;
+    --accent: #1a1a1a;
+    --accent2: #333;
+    --red: #dc2626;
+    --red2: #b91c1c;
+    --green: #16a34a;
+    --blue: #2563eb;
+    --text: #1a1a1a;
+    --text2: #6b6860;
+    --text3: #a8a49c;
     --mono: 'IBM Plex Mono', monospace;
     --sans: 'IBM Plex Sans', sans-serif;
   }
@@ -42,12 +44,14 @@
     width: 100%;
     max-width: 900px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     border-bottom: 1px solid var(--border);
-    padding-bottom: 20px;
+    padding-bottom: 18px;
   }
+  .header-left { display: flex; align-items: baseline; gap: 12px; }
   header h1 {
     font-family: var(--mono);
     font-size: 13px;
@@ -56,18 +60,31 @@
     text-transform: uppercase;
     color: var(--text);
   }
-  header span {
+  header .subtitle {
     font-family: var(--mono);
     font-size: 11px;
     color: var(--text3);
     letter-spacing: 0.1em;
+  }
+  .header-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
   }
   .dot-live {
     width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--red);
     display: inline-block;
-    margin-right: 6px;
     animation: pulse-live 1.2s ease-in-out infinite;
     opacity: 0;
     transition: opacity .3s;
@@ -83,21 +100,22 @@
     width: 100%;
     max-width: 900px;
     display: grid;
-    grid-template-columns: 1fr 280px;
+    grid-template-columns: 1fr 272px;
     gap: 16px;
   }
 
   /* ── VIDEO PREVIEW ── */
   .preview-wrap {
     position: relative;
-    background: #000;
+    background: #1a1a1a;
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
     overflow: hidden;
     aspect-ratio: 16/9;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
   }
   #livePreview {
     width: 100%;
@@ -109,31 +127,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
-    color: var(--text3);
+    gap: 12px;
+    color: #555;
   }
-  .preview-placeholder svg { opacity: .3; }
+  .preview-placeholder svg { opacity: .25; }
   .preview-placeholder p {
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: .08em;
     text-transform: uppercase;
+    color: #666;
   }
   .preview-overlay {
     position: absolute;
     top: 12px; left: 12px;
-    background: rgba(0,0,0,.7);
-    border: 1px solid var(--border2);
-    border-radius: 3px;
-    padding: 4px 10px;
+    background: rgba(0,0,0,.75);
+    border-radius: 4px;
+    padding: 5px 11px;
     font-family: var(--mono);
     font-size: 12px;
     font-weight: 600;
-    color: var(--accent);
+    color: #fff;
     display: none;
     align-items: center;
     gap: 6px;
     letter-spacing: .06em;
+    backdrop-filter: blur(4px);
   }
   .preview-overlay.visible { display: flex; }
 
@@ -149,12 +168,12 @@
   .vu-wrap.visible { display: flex; }
   .vu-bar {
     flex: 1;
-    background: var(--accent);
+    background: #4ade80;
     border-radius: 1px;
     transition: height .06s ease;
     height: 3px;
     max-height: 28px;
-    opacity: .7;
+    opacity: .8;
   }
 
   /* ── SIDEBAR ── */
@@ -167,8 +186,9 @@
   .panel {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
   }
   .panel-title {
     font-family: var(--mono);
@@ -177,7 +197,7 @@
     letter-spacing: .18em;
     text-transform: uppercase;
     color: var(--text3);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   /* ── TOGGLE ROWS ── */
@@ -185,25 +205,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 9px 0;
     border-bottom: 1px solid var(--border);
   }
   .toggle-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .toggle-label {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .toggle-label span:first-child {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text);
-  }
-  .toggle-label span:last-child {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text3);
-  }
+  .toggle-label { display: flex; flex-direction: column; gap: 2px; }
+  .toggle-label span:first-child { font-size: 13px; font-weight: 400; color: var(--text); }
+  .toggle-label span:last-child { font-family: var(--mono); font-size: 10px; color: var(--text3); }
 
   /* Switch */
   .switch { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
@@ -220,19 +228,20 @@
     position: absolute;
     left: 3px; top: 3px;
     width: 16px; height: 16px;
-    background: var(--text2);
+    background: #fff;
     border-radius: 50%;
-    transition: transform .2s, background .2s;
+    transition: transform .2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
   }
   .switch input:checked + .slider { background: var(--accent); }
-  .switch input:checked + .slider::before { transform: translateX(16px); background: #000; }
+  .switch input:checked + .slider::before { transform: translateX(16px); }
 
   /* ── SELECT ── */
   .select-row {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 10px 0;
+    gap: 5px;
+    padding: 9px 0;
     border-bottom: 1px solid var(--border);
   }
   .select-row:last-child { border-bottom: none; }
@@ -245,29 +254,44 @@
   }
   select {
     background: var(--surface2);
-    border: 1px solid var(--border2);
+    border: 1px solid var(--border);
     color: var(--text);
     font-family: var(--mono);
     font-size: 12px;
     padding: 7px 10px;
-    border-radius: 3px;
+    border-radius: 6px;
     appearance: none;
     cursor: pointer;
     outline: none;
     width: 100%;
+    transition: border .15s;
   }
   select:focus { border-color: var(--accent); }
+  select:disabled { opacity: .4; cursor: not-allowed; }
+
+  /* ── FORMAT BADGE ── */
+  .format-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 3px;
+  }
+  .format-badge.mp4  { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  .format-badge.webm { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
 
   /* ── TIMER ── */
   .timer-display {
     font-family: var(--mono);
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 500;
-    color: var(--accent);
+    color: var(--text);
     letter-spacing: .05em;
     text-align: center;
-    padding: 16px 0 8px;
+    padding: 14px 0 6px;
   }
+  .timer-display.recording { color: var(--red); }
   .timer-label {
     font-family: var(--mono);
     font-size: 10px;
@@ -275,7 +299,7 @@
     text-transform: uppercase;
     color: var(--text3);
     text-align: center;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   /* ── STATUS ── */
@@ -286,68 +310,66 @@
     text-align: center;
     min-height: 16px;
     transition: color .3s;
+    margin-top: 6px;
   }
-  .status-line.ok { color: var(--accent); }
+  .status-line.ok  { color: var(--green); }
   .status-line.err { color: var(--red); }
+  .status-line.rec { color: var(--red); }
 
   /* ── BUTTONS ── */
   .btn-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    margin-top: 8px;
+    margin-top: 10px;
   }
   .btn {
     font-family: var(--mono);
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: .1em;
+    letter-spacing: .08em;
     text-transform: uppercase;
     border: none;
-    border-radius: 3px;
-    padding: 12px 8px;
+    border-radius: 6px;
+    padding: 11px 8px;
     cursor: pointer;
     transition: all .15s;
     outline: none;
   }
-  .btn:disabled { opacity: .25; cursor: not-allowed; }
+  .btn:disabled { opacity: .3; cursor: not-allowed; }
 
   .btn-record {
     background: var(--accent);
-    color: #000;
+    color: #fff;
     grid-column: 1 / -1;
   }
-  .btn-record:hover:not(:disabled) { background: var(--accent2); }
+  .btn-record:hover:not(:disabled) { background: #333; }
   .btn-record.recording {
     background: var(--red);
-    color: #fff;
     animation: record-pulse 2s ease-in-out infinite;
   }
   .btn-record.recording:hover:not(:disabled) { background: var(--red2); animation: none; }
   @keyframes record-pulse {
-    0%,100%{box-shadow:0 0 0 0 rgba(255,69,69,.4)}
-    50%{box-shadow:0 0 0 8px rgba(255,69,69,0)}
+    0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.3)}
+    50%{box-shadow:0 0 0 8px rgba(220,38,38,0)}
   }
 
   .btn-pause {
     background: var(--surface2);
     color: var(--text);
-    border: 1px solid var(--border2);
+    border: 1px solid var(--border);
   }
-  .btn-pause:hover:not(:disabled) { border-color: var(--text2); }
+  .btn-pause:hover:not(:disabled) { border-color: var(--accent); }
 
   .btn-save {
     background: var(--surface2);
-    color: var(--accent);
-    border: 1px solid var(--accent);
+    color: var(--text);
+    border: 1px solid var(--border);
   }
-  .btn-save:hover:not(:disabled) { background: var(--accent); color: #000; }
+  .btn-save:hover:not(:disabled) { border-color: var(--red); color: var(--red); }
 
-  /* ── RECORDINGS LIST ── */
-  .recordings-wrap {
-    grid-column: 1 / -1;
-    margin-top: 8px;
-  }
+  /* ── RECORDINGS ── */
+  .recordings-wrap { grid-column: 1 / -1; margin-top: 4px; }
   .recordings-title {
     font-family: var(--mono);
     font-size: 10px;
@@ -355,7 +377,7 @@
     letter-spacing: .18em;
     text-transform: uppercase;
     color: var(--text3);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
@@ -363,72 +385,55 @@
   .rec-item {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 14px 16px;
     display: grid;
     grid-template-columns: 1fr auto auto;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
   }
   .rec-item video {
     grid-column: 1 / -1;
     width: 100%;
-    border-radius: 2px;
+    border-radius: 4px;
     max-height: 220px;
     background: #000;
   }
-  .rec-name {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text);
+  .rec-name { font-family: var(--mono); font-size: 12px; color: var(--text); }
+  .rec-meta { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .rec-format {
+    font-family: var(--mono); font-size: 10px;
+    padding: 1px 6px; border-radius: 3px;
+    display: inline-block; margin-left: 4px;
   }
-  .rec-meta {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 2px;
-  }
+  .rec-format.mp4  { background: #dcfce7; color: #15803d; }
+  .rec-format.webm { background: #fef9c3; color: #854d0e; }
+
   .btn-dl {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 3px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all .15s;
-    text-decoration: none;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 5px;
+    padding: 7px 12px; cursor: pointer;
+    transition: all .15s; text-decoration: none;
+    white-space: nowrap;
   }
-  .btn-dl:hover { background: var(--accent); color: #000; }
+  .btn-dl:hover { background: #333; }
   .btn-del {
-    font-family: var(--mono);
-    font-size: 11px;
-    background: transparent;
-    border: 1px solid var(--border2);
-    color: var(--text3);
-    border-radius: 3px;
-    padding: 6px 10px;
-    cursor: pointer;
-    transition: all .15s;
+    font-family: var(--mono); font-size: 11px;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text3); border-radius: 5px;
+    padding: 7px 10px; cursor: pointer; transition: all .15s;
   }
   .btn-del:hover { border-color: var(--red); color: var(--red); }
 
   .no-recordings {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-    padding: 24px 0;
-    text-align: center;
-    border: 1px dashed var(--border);
-    border-radius: 4px;
-    letter-spacing: .06em;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text3); padding: 24px 0; text-align: center;
+    border: 1px dashed var(--border); border-radius: 8px; letter-spacing: .06em;
   }
 
-  /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -442,8 +447,13 @@
 <body>
 
 <header>
-  <h1><span class="dot-live" id="dotLive"></span>Screen Recorder</h1>
-  <span id="headerStatus">AGUARDANDO</span>
+  <div class="header-left">
+    <h1><span class="dot-live" id="dotLive"></span>Screen Recorder</h1>
+    <span class="subtitle" id="headerStatus">AGUARDANDO</span>
+  </div>
+  <div class="header-badge" id="formatBadgeHeader">
+    <span id="detectedFormat">WebM</span>
+  </div>
 </header>
 
 <main>
@@ -451,19 +461,19 @@
   <div class="preview-wrap" id="previewWrap">
     <video id="livePreview" autoplay muted playsinline></video>
     <div class="preview-placeholder" id="placeholder">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <rect x="4" y="10" width="40" height="28" rx="3" stroke="#888" stroke-width="1.5"/>
-        <circle cx="24" cy="24" r="8" stroke="#888" stroke-width="1.5"/>
-        <circle cx="24" cy="24" r="3" fill="#888"/>
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+        <rect x="4" y="11" width="44" height="30" rx="4" stroke="#888" stroke-width="1.5"/>
+        <circle cx="26" cy="26" r="9" stroke="#888" stroke-width="1.5"/>
+        <circle cx="26" cy="26" r="3.5" fill="#888"/>
+        <rect x="22" y="38" width="8" height="4" rx="1" fill="#888"/>
+        <rect x="16" y="42" width="20" height="1.5" rx=".75" fill="#888"/>
       </svg>
       <p>Nenhuma gravação ativa</p>
     </div>
     <div class="preview-overlay" id="recBadge">
-      <span style="color:var(--red);font-size:16px">●</span> REC <span id="overlayTime">00:00</span>
+      <span style="color:#f87171;font-size:15px">●</span> REC <span id="overlayTime">00:00</span>
     </div>
-    <div class="vu-wrap" id="vuWrap">
-      <!-- bars inserted by JS -->
-    </div>
+    <div class="vu-wrap" id="vuWrap"></div>
   </div>
 
   <!-- SIDEBAR -->
@@ -471,18 +481,18 @@
 
     <!-- TIMER -->
     <div class="panel">
-      <div class="timer-label">Tempo de gravação</div>
+      <div class="timer-label">Tempo gravado</div>
       <div class="timer-display" id="timerDisplay">00:00:00</div>
       <div class="status-line" id="statusLine">Pronto para gravar</div>
     </div>
 
-    <!-- AUDIO OPTIONS -->
+    <!-- AUDIO -->
     <div class="panel">
       <div class="panel-title">Áudio</div>
       <div class="toggle-row">
         <div class="toggle-label">
           <span>Som do sistema</span>
-          <span>Captura o áudio da tela</span>
+          <span>Áudio da tela (Chrome/Edge)</span>
         </div>
         <label class="switch">
           <input type="checkbox" id="toggleSystemAudio" checked>
@@ -503,9 +513,9 @@
 
     <!-- QUALITY -->
     <div class="panel">
-      <div class="panel-title">Qualidade</div>
+      <div class="panel-title">Qualidade e formato</div>
       <div class="select-row">
-        <label>Resolução alvo</label>
+        <label>Qualidade de vídeo</label>
         <select id="qualitySelect">
           <option value="8000000">Alta — 8 Mbps</option>
           <option value="4000000" selected>Média — 4 Mbps</option>
@@ -513,12 +523,13 @@
         </select>
       </div>
       <div class="select-row">
-        <label>Formato</label>
+        <label>Formato preferido</label>
         <select id="formatSelect">
+          <option value="mp4_preferred">MP4 (preferido)</option>
           <option value="video/webm;codecs=vp9,opus">WebM / VP9</option>
           <option value="video/webm;codecs=vp8,opus">WebM / VP8</option>
-          <option value="video/mp4">MP4 (se suportado)</option>
         </select>
+        <div id="formatNote" class="format-badge mp4">MP4 detectado ✓</div>
       </div>
     </div>
 
@@ -527,8 +538,8 @@
       <div class="panel-title">Controles</div>
       <div class="btn-group">
         <button class="btn btn-record" id="btnRecord">⏺ Iniciar</button>
-        <button class="btn btn-pause" id="btnPause" disabled>⏸ Pausar</button>
-        <button class="btn btn-save"  id="btnStop"  disabled>⏹ Parar</button>
+        <button class="btn btn-pause"  id="btnPause" disabled>⏸ Pausar</button>
+        <button class="btn btn-save"   id="btnStop"  disabled>⏹ Parar</button>
       </div>
     </div>
 
@@ -560,26 +571,85 @@ let seconds = 0;
 let isPaused = false;
 let recCount = 0;
 let vuBars = [];
+let activeMime = '';
+
+// ── MP4 MIME CANDIDATES (priority order) ─────────────
+const MP4_MIMES = [
+  'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+  'video/mp4;codecs=avc1,mp4a.40.2',
+  'video/mp4;codecs=h264,aac',
+  'video/mp4;codecs=avc1',
+  'video/mp4',
+];
+const WEBM_MIMES = [
+  'video/webm;codecs=vp9,opus',
+  'video/webm;codecs=vp8,opus',
+  'video/webm',
+];
+
+function pickMime(preferMp4){
+  const list = preferMp4 ? [...MP4_MIMES, ...WEBM_MIMES] : WEBM_MIMES;
+  for(const m of list){
+    if(MediaRecorder.isTypeSupported(m)) return m;
+  }
+  return '';
+}
 
 // ── DOM ────────────────────────────────────────────────
-const btnRecord  = document.getElementById('btnRecord');
-const btnPause   = document.getElementById('btnPause');
-const btnStop    = document.getElementById('btnStop');
-const livePreview= document.getElementById('livePreview');
-const placeholder= document.getElementById('placeholder');
-const timerDisp  = document.getElementById('timerDisplay');
-const statusLine = document.getElementById('statusLine');
-const recBadge   = document.getElementById('recBadge');
-const overlayTime= document.getElementById('overlayTime');
-const vuWrap     = document.getElementById('vuWrap');
-const dotLive    = document.getElementById('dotLive');
-const headerStatus=document.getElementById('headerStatus');
-const recList    = document.getElementById('recordingsList');
-const noRec      = document.getElementById('noRec');
-const toggleSys  = document.getElementById('toggleSystemAudio');
-const toggleMic  = document.getElementById('toggleMic');
-const qualitySelect=document.getElementById('qualitySelect');
-const formatSelect =document.getElementById('formatSelect');
+const btnRecord   = document.getElementById('btnRecord');
+const btnPause    = document.getElementById('btnPause');
+const btnStop     = document.getElementById('btnStop');
+const livePreview = document.getElementById('livePreview');
+const placeholder = document.getElementById('placeholder');
+const timerDisp   = document.getElementById('timerDisplay');
+const statusLine  = document.getElementById('statusLine');
+const recBadge    = document.getElementById('recBadge');
+const overlayTime = document.getElementById('overlayTime');
+const vuWrap      = document.getElementById('vuWrap');
+const dotLive     = document.getElementById('dotLive');
+const headerStatus= document.getElementById('headerStatus');
+const recList     = document.getElementById('recordingsList');
+const noRec       = document.getElementById('noRec');
+const toggleSys   = document.getElementById('toggleSystemAudio');
+const toggleMic   = document.getElementById('toggleMic');
+const qualSel     = document.getElementById('qualitySelect');
+const fmtSel      = document.getElementById('formatSelect');
+const formatNote  = document.getElementById('formatNote');
+const detectedFmt = document.getElementById('detectedFormat');
+
+// ── INIT: detect MP4 support ──────────────────────────
+(function detectSupport(){
+  const hasMp4 = MP4_MIMES.some(m => MediaRecorder.isTypeSupported(m));
+  if(hasMp4){
+    formatNote.textContent = 'MP4 suportado neste navegador ✓';
+    formatNote.className = 'format-badge mp4';
+    detectedFmt.textContent = 'MP4';
+  } else {
+    formatNote.textContent = 'MP4 não suportado → usará WebM';
+    formatNote.className = 'format-badge webm';
+    detectedFmt.textContent = 'WebM';
+    // disable MP4 option
+    fmtSel.options[0].text = 'MP4 (não suportado neste navegador)';
+    fmtSel.options[0].disabled = true;
+    fmtSel.selectedIndex = 1;
+  }
+  fmtSel.addEventListener('change', updateFormatNote);
+})();
+
+function updateFormatNote(){
+  const val = fmtSel.value;
+  if(val === 'mp4_preferred'){
+    const ok = MP4_MIMES.some(m=>MediaRecorder.isTypeSupported(m));
+    formatNote.textContent = ok ? 'MP4 suportado neste navegador ✓' : 'MP4 não suportado → usará WebM';
+    formatNote.className = 'format-badge ' + (ok ? 'mp4' : 'webm');
+    detectedFmt.textContent = ok ? 'MP4' : 'WebM';
+  } else {
+    const ext = val.includes('webm') ? 'WebM' : 'MP4';
+    formatNote.textContent = MediaRecorder.isTypeSupported(val) ? ext+' ✓' : ext+' não suportado';
+    formatNote.className = 'format-badge ' + (val.includes('webm') ? 'webm' : 'mp4');
+    detectedFmt.textContent = ext;
+  }
+}
 
 // ── VU BARS ───────────────────────────────────────────
 (function initVU(){
@@ -598,10 +668,7 @@ function startTimer(){
     if(!isPaused){ seconds++; updateTimerDisplay(); }
   },1000);
 }
-function stopTimer(){
-  clearInterval(timerInterval);
-  timerInterval = null;
-}
+function stopTimer(){ clearInterval(timerInterval); timerInterval = null; }
 function updateTimerDisplay(){
   const h = Math.floor(seconds/3600).toString().padStart(2,'0');
   const m = Math.floor((seconds%3600)/60).toString().padStart(2,'0');
@@ -610,7 +677,7 @@ function updateTimerDisplay(){
   overlayTime.textContent = `${m}:${s}`;
 }
 
-// ── AUDIO ANALYSER ─────────────────────────────────────
+// ── AUDIO ANALYSER ────────────────────────────────────
 function startAnalyser(stream){
   if(!stream.getAudioTracks().length) return;
   audioCtx = new AudioContext();
@@ -638,31 +705,25 @@ function stopAnalyser(){
   vuBars.forEach(b=>{ b.style.height='3px'; });
 }
 
-// ── STATUS HELPERS ────────────────────────────────────
+// ── STATUS ────────────────────────────────────────────
 function setStatus(msg, cls=''){
   statusLine.textContent = msg;
   statusLine.className = 'status-line' + (cls ? ' '+cls : '');
 }
-function setHeaderStatus(txt){
-  headerStatus.textContent = txt;
-}
 
 // ── RECORD ────────────────────────────────────────────
 btnRecord.addEventListener('click', async ()=>{
-  if(mediaRecorder && mediaRecorder.state !== 'inactive'){
-    // already recording — do nothing (stop handles it)
-    return;
-  }
+  if(mediaRecorder && mediaRecorder.state !== 'inactive') return;
   try {
     setStatus('Aguardando permissão…');
 
-    // 1. Screen capture
+    // 1. Screen
     screenStream = await navigator.mediaDevices.getDisplayMedia({
       video: { cursor: 'always' },
-      audio: toggleSys.checked  // system audio (Chrome only)
+      audio: toggleSys.checked
     });
 
-    // 2. Mic capture
+    // 2. Mic
     let audioTracks = [];
     if(toggleMic.checked){
       try {
@@ -670,43 +731,48 @@ btnRecord.addEventListener('click', async ()=>{
         audioTracks = micStream.getAudioTracks();
       } catch(e){
         setStatus('Mic indisponível — continuando sem mic', 'err');
-        await new Promise(r=>setTimeout(r,1200));
+        await new Promise(r=>setTimeout(r,1000));
       }
     }
 
-    // 3. Mix tracks
+    // 3. Mix
     const tracks = [...screenStream.getTracks(), ...audioTracks];
     mixedStream = new MediaStream(tracks);
 
-    // 4. Live preview
+    // 4. Preview
     livePreview.srcObject = mixedStream;
     livePreview.style.display = 'block';
     placeholder.style.display = 'none';
 
-    // 5. VU meter (on mixed audio tracks)
+    // 5. VU
     if(mixedStream.getAudioTracks().length){
       vuWrap.classList.add('visible');
       startAnalyser(mixedStream);
     }
 
-    // 6. Pick best MIME
-    let mimeType = formatSelect.value;
-    if(!MediaRecorder.isTypeSupported(mimeType)){
-      mimeType = 'video/webm;codecs=vp8,opus';
-      if(!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
+    // 6. MIME — MP4 priority
+    const preferMp4 = fmtSel.value === 'mp4_preferred';
+    if(preferMp4){
+      activeMime = pickMime(true);
+    } else {
+      activeMime = MediaRecorder.isTypeSupported(fmtSel.value) ? fmtSel.value : pickMime(false);
     }
+    if(!activeMime){ activeMime = 'video/webm'; }
 
     // 7. MediaRecorder
     chunks = [];
     mediaRecorder = new MediaRecorder(mixedStream, {
-      mimeType,
-      videoBitsPerSecond: parseInt(qualitySelect.value)
+      mimeType: activeMime,
+      videoBitsPerSecond: parseInt(qualSel.value)
     });
     mediaRecorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
     mediaRecorder.onstop = saveRecording;
     mediaRecorder.start(1000);
 
-    // 8. UI state
+    const ext = activeMime.includes('mp4') ? 'MP4' : 'WebM';
+    const isMP4 = activeMime.includes('mp4');
+
+    // 8. UI
     isPaused = false;
     startTimer();
     btnRecord.textContent = '⏺ Gravando…';
@@ -716,15 +782,17 @@ btnRecord.addEventListener('click', async ()=>{
     btnStop.disabled = false;
     toggleSys.disabled = true;
     toggleMic.disabled = true;
-    qualitySelect.disabled = true;
-    formatSelect.disabled = true;
+    qualSel.disabled = true;
+    fmtSel.disabled = true;
+    timerDisp.classList.add('recording');
     recBadge.classList.add('visible');
     dotLive.classList.add('active');
-    setHeaderStatus('● GRAVANDO');
-    setStatus('Gravando…', 'ok');
+    headerStatus.textContent = '● GRAVANDO';
+    setStatus(`Gravando em ${ext}…`, 'rec');
 
-    // If user stops sharing via browser UI
-    screenStream.getVideoTracks()[0].addEventListener('ended', ()=>{ if(mediaRecorder&&mediaRecorder.state!=='inactive') stopRecording(); });
+    screenStream.getVideoTracks()[0].addEventListener('ended', ()=>{
+      if(mediaRecorder && mediaRecorder.state !== 'inactive') stopRecording();
+    });
 
   } catch(e){
     setStatus('Erro: ' + (e.message||e), 'err');
@@ -732,23 +800,24 @@ btnRecord.addEventListener('click', async ()=>{
   }
 });
 
-// ── PAUSE / RESUME ────────────────────────────────────
+// ── PAUSE ─────────────────────────────────────────────
 btnPause.addEventListener('click', ()=>{
   if(!mediaRecorder) return;
   if(mediaRecorder.state === 'recording'){
     mediaRecorder.pause();
     isPaused = true;
     btnPause.textContent = '▶ Retomar';
-    setStatus('Pausado', '');
+    setStatus('Pausado');
     dotLive.classList.remove('active');
-    setHeaderStatus('⏸ PAUSADO');
+    headerStatus.textContent = '⏸ PAUSADO';
   } else if(mediaRecorder.state === 'paused'){
     mediaRecorder.resume();
     isPaused = false;
     btnPause.textContent = '⏸ Pausar';
-    setStatus('Gravando…', 'ok');
+    const ext = activeMime.includes('mp4') ? 'MP4' : 'WebM';
+    setStatus(`Gravando em ${ext}…`, 'rec');
     dotLive.classList.add('active');
-    setHeaderStatus('● GRAVANDO');
+    headerStatus.textContent = '● GRAVANDO';
   }
 });
 
@@ -782,23 +851,25 @@ function resetUI(){
   btnStop.disabled = true;
   toggleSys.disabled = false;
   toggleMic.disabled = false;
-  qualitySelect.disabled = false;
-  formatSelect.disabled = false;
+  qualSel.disabled = false;
+  fmtSel.disabled = false;
+  timerDisp.classList.remove('recording');
   recBadge.classList.remove('visible');
   dotLive.classList.remove('active');
   timerDisp.textContent = '00:00:00';
-  setHeaderStatus('AGUARDANDO');
-  setStatus('Gravação salva!', 'ok');
-  setTimeout(()=>setStatus('Pronto para gravar')  ,3000);
+  headerStatus.textContent = 'AGUARDANDO';
+  setStatus('Gravação salva ✓', 'ok');
+  setTimeout(()=>setStatus('Pronto para gravar'), 3000);
 }
 
-// ── SAVE RECORDING ────────────────────────────────────
+// ── SAVE ──────────────────────────────────────────────
 function saveRecording(){
   if(!chunks.length) return;
   recCount++;
-  const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
+  const blob = new Blob(chunks, { type: activeMime });
   const url  = URL.createObjectURL(blob);
-  const ext  = mediaRecorder.mimeType.includes('mp4') ? 'mp4' : 'webm';
+  const isMp4 = activeMime.includes('mp4');
+  const ext  = isMp4 ? 'mp4' : 'webm';
   const name = `gravacao_${String(recCount).padStart(2,'0')}_${timestamp()}`;
   const size = (blob.size/1024/1024).toFixed(2);
   const dur  = seconds;
@@ -807,13 +878,11 @@ function saveRecording(){
 
   const item = document.createElement('div');
   item.className = 'rec-item';
-  item.dataset.id = recCount;
-
   item.innerHTML = `
     <video src="${url}" controls></video>
     <div>
-      <div class="rec-name">${name}.${ext}</div>
-      <div class="rec-meta">${formatDur(dur)} · ${size} MB · ${ext.toUpperCase()}</div>
+      <div class="rec-name">${name}.${ext} <span class="rec-format ${ext}">${ext.toUpperCase()}</span></div>
+      <div class="rec-meta">${formatDur(dur)} · ${size} MB</div>
     </div>
     <a class="btn-dl" href="${url}" download="${name}.${ext}">↓ Baixar</a>
     <button class="btn-del" onclick="removeRec(this,'${url}')">✕</button>
@@ -838,24 +907,9 @@ function timestamp(){
 }
 function formatDur(s){
   const m = Math.floor(s/60);
-  const ss= s%60;
+  const ss = s%60;
   return `${m}m ${ss}s`;
 }
-
-// ── FORMAT SUPPORT CHECK ──────────────────────────────
-(function checkFormats(){
-  const sel = formatSelect;
-  for(const opt of sel.options){
-    if(!MediaRecorder.isTypeSupported(opt.value)){
-      opt.text += ' (não suportado)';
-      opt.disabled = true;
-    }
-  }
-  // auto-select first supported
-  for(const opt of sel.options){
-    if(!opt.disabled){ opt.selected = true; break; }
-  }
-})();
 </script>
 </body>
 </html>
